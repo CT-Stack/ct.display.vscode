@@ -1,6 +1,6 @@
 import {ExtensionContext, Memento} from 'vscode';
 import * as path from 'path';
-import {Consts} from '../consts'
+import {TestConsts} from '../TestConsts'
 
 export class ExtensionContextStub implements ExtensionContext
 {
@@ -14,7 +14,7 @@ export class ExtensionContextStub implements ExtensionContext
 		extensionPath: string;
 
 		public asAbsolutePath(relativePath: string): string {
-            return path.join(Consts.WorkspacePath, relativePath);
+            return path.join(TestConsts.WorkspacePath, relativePath);
         }
 		storagePath: string;
 }
