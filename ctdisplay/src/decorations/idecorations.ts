@@ -1,9 +1,6 @@
-import {TextEditorDecorationType} from "vscode"
+import { TextEditorDecorationType } from "vscode"
+import { TestStatus } from "../contract/TestStatus";
 export interface IDecorations {
 
-    PassDecoration: TextEditorDecorationType;
-
-    FailDecoration: TextEditorDecorationType;
-
-    UnexecutedDecoration: TextEditorDecorationType;
+    DecorationsCollection: Map<TestStatus, TextEditorDecorationType>;
 }

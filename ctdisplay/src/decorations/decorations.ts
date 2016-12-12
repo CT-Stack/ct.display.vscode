@@ -7,6 +7,7 @@ import {IFileExistenceChecker}  from "../common/files/ifileexistencechecker";
 import {FileExistenceChecker}  from "../common/files/fileexistencechecker";
 import {DecorationCreator} from "./decorationCreator";
 import {IDecorationCreator} from "./IDecorationCreator";
+import { TestStatus} from "../contract/TestStatus";
 
 export class Decorations implements IDecorations {
 
@@ -16,32 +17,26 @@ export class Decorations implements IDecorations {
                 private fileExistenceChecker: IFileExistenceChecker = new FileExistenceChecker(),
                 private decorationCreator: IDecorationCreator = new DecorationCreator() )
     {
+        this._decorationsCollection = new Map<TestStatus, TextEditorDecorationType>();
         this.initializeDecorations();
     }
     
-    private _passDecoration: TextEditorDecorationType;
-    private _failDecoration: TextEditorDecorationType;
-    private _unexecutedDecoration: TextEditorDecorationType;
+    private _decorationsCollection : Map<TestStatus, TextEditorDecorationType>;
 
-    get PassDecoration(): TextEditorDecorationType{
-        return this._passDecoration;
-    }
-
-    get FailDecoration(): TextEditorDecorationType{
-        return this._failDecoration;
-    }
-
-    get UnexecutedDecoration(): TextEditorDecorationType{
-        return this._unexecutedDecoration;
+    get DecorationsCollection() : Map<TestStatus, TextEditorDecorationType>{
+        return this._decorationsCollection;
     }
 
     private initializeDecorations() {
         var passIconPath = this.getIconPath("passIconPath", "images\\pass.png" ) 
-        this._passDecoration = this.decorationCreator.createTextEditorDecorationType({gutterIconPath: passIconPath});
+        var passDecoration = this.decorationCreator.createTextEditorDecorationType({gutterIconPath: passIconPath});
+        this.DecorationsCollection.set(TestStatus.Pass, passDecoration);
         var failIconPath = this.getIconPath("failIconPath", "images\\fail.png" ) 
-        this._failDecoration = this.decorationCreator.createTextEditorDecorationType({gutterIconPath: failIconPath});
+        var failDecoration = this.decorationCreator.createTextEditorDecorationType({gutterIconPath: failIconPath});
+        this.DecorationsCollection.set(TestStatus.Fail, failDecoration);
         var unexecutedIconPath = this.getIconPath("unexecutedIconPath", "images\\unexecuted.png" ) 
-        this._unexecutedDecoration = this.decorationCreator.createTextEditorDecorationType({gutterIconPath: unexecutedIconPath});
+        var unexecutedDecoration = this.decorationCreator.createTextEditorDecorationType({gutterIconPath: unexecutedIconPath});
+        this.DecorationsCollection.set(TestStatus.Unexecuted, unexecutedDecoration);
     }
 
     private getIconPath(configValue: string, defaultValue: string) : string

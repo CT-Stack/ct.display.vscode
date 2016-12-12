@@ -15,9 +15,8 @@ suite("Decorations test", () => {
     test("Decorations must not be null after object initialization", () => {
         var contextStub = new ExtensionContextStub();
         var decoration = new Decorations(contextStub);
-        assert.notEqual(decoration.PassDecoration, null);
-        assert.notEqual(decoration.FailDecoration, null);
-        assert.notEqual(decoration.UnexecutedDecoration, null);
+        assert.notEqual(decoration.DecorationsCollection, null);
+        assert.equal(decoration.DecorationsCollection.size, 3);
     });
 
     test("When configuration is empty then pathIcon set to default", () => {
