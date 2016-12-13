@@ -24,7 +24,7 @@ export class UpdateTestsInFileCommand implements ICommand{
     public updateTestStates(tests: TestResult[]): void {
         this.setTests(tests, TestStatus.Pass);
         this.setTests(tests, TestStatus.Fail);
-        this.setTests(tests, TestStatus.Fail);
+        this.setTests(tests, TestStatus.Unexecuted);
     }
 
     private setTests(tests: TestResult[], testStatus: TestStatus)
