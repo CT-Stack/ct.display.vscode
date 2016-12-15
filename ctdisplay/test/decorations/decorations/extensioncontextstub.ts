@@ -1,6 +1,6 @@
 import {ExtensionContext, Memento} from 'vscode';
 import * as path from 'path';
-import {TestConsts} from '../TestConsts'
+import {TestConsts} from '../../TestConsts'
 
 export class ExtensionContextStub implements ExtensionContext
 {

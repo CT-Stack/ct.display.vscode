@@ -3,6 +3,7 @@ import {Decorations} from "../decorations/decorations";
 import * as vscode from "vscode";
 import {TestResult} from "../contract/testresult";
 import {TestStatus} from "../contract/teststatus";
+import {TestSetResult} from "../contract/TestSetResult";
 import {TestTransferObject} from "../contract/testTransferObject";
 import {ITestDecorationPainter} from "../decorations/ITestDecorationPainter";
 
@@ -14,14 +15,14 @@ export class UpdateTestsInFileCommand implements ICommand{
     {}
 
     public execute(): void{
-        if (!this.activeTextEditor || this.isDocumentEmpty(this.activeTextEditor.document)) {
+        if (!this.activeTextEditor || this.isDocumentEmpty(this.activeTextEditor.document) || !this.testTransferObject) {
             return;
         }
-        var activeEditorTests = this.filterTestSetForActiveTextEditor(this.testTransferObject);
+        var activeEditorTests = this.getTestsForActiveEditor(this.testTransferObject);
         this.updateTestStates(activeEditorTests);
     }
 
-    public updateTestStates(tests: TestResult[]): void {
+    private updateTestStates(tests: TestResult[]): void {
         this.setTests(tests, TestStatus.Pass);
         this.setTests(tests, TestStatus.Fail);
         this.setTests(tests, TestStatus.Unexecuted);
@@ -33,9 +34,15 @@ export class UpdateTestsInFileCommand implements ICommand{
         this.testDecorationPainter.paintTestDecorations(filteredTests, testStatus, this.activeTextEditor);
     }
 
-    private filterTestSetForActiveTextEditor(testTransferObject: TestTransferObject) : TestResult[]
+    private getTestsForActiveEditor(testTransferObject: TestTransferObject) : TestResult[]
     {
-        throw new Error ("Not implemented");
+        var filteredTestSets = testTransferObject.TestSetResults.filter(e=>e.FilePath.toUpperCase() === this.activeTextEditor.document.uri.path.toUpperCase());
+        let result : TestResult[] = [];
+        for (let setResult of filteredTestSets)
+        {
+            result = result.concat(setResult.TestResults);
+        }
+        return result;
     }
 
     private takeTestsWithSelectedTestStatus(testCollection: TestResult[],selectedTestStatus: TestStatus) : TestResult[]{

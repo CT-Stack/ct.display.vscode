@@ -1,4 +1,4 @@
-import {IMessageDisplay} from "../../src/usercommunication/IMessageDisplay";
+import {IMessageDisplay} from "../../../src/usercommunication/IMessageDisplay";
 export class MessageDisplayMock implements IMessageDisplay{
 
         private _showWarningMessageCalled : boolean= false;

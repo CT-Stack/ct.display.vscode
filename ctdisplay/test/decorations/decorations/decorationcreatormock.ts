@@ -1,4 +1,4 @@
-import {IDecorationCreator} from "../../src/decorations/IDecorationCreator";
+import {IDecorationCreator} from "../../../src/decorations/IDecorationCreator";
 import {DecorationRenderOptions, TextEditorDecorationType} from "vscode";
 export class DecorationCreatorMock implements IDecorationCreator {
 

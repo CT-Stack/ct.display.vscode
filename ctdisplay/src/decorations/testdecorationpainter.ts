@@ -1,11 +1,11 @@
 import {TestResult} from "../contract/testresult";
 import {TestStatus} from "../contract/teststatus";
 import {ITestDecorationPainter} from "./ITestDecorationPainter";
-import {Decorations} from "../decorations/decorations";
+import {IDecorations} from "../decorations/idecorations";
 import {Range,TextEditor} from "vscode";
 export class TestDecorationPainter implements ITestDecorationPainter {
 
-    constructor(private decorations: Decorations)
+    constructor(private decorations: IDecorations)
     {}
     public paintTestDecorations(tests: TestResult[], testStatus: TestStatus, activeTextEditor : TextEditor)
     {        

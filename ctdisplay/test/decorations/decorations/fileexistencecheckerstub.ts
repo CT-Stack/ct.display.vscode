@@ -1,4 +1,4 @@
-import {IFileExistenceChecker} from "../../src/common/files/IFileExistenceChecker";
+import {IFileExistenceChecker} from "../../../src/common/files/IFileExistenceChecker";
 
 export class FileExistenceCheckerStub implements IFileExistenceChecker{
 

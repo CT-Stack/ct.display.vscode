@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 
 import {ThemableDecorationRenderOptions} from 'vscode';
-import {Decorations} from '../../src/decorations/decorations';
+import {Decorations} from '../../../src/decorations/decorations';
 import * as fs from 'fs';
 import * as vscode from 'vscode';
 import {ExtensionContextStub} from './ExtensionContextStub';

@@ -11,14 +11,18 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:bookmarks.toggle"
+    "onCommand:ct.run"
   ],
   "main": "./out/src/extension",
   "contributes": {
     "commands": [
       {
-        "command": "bookmarks.toggle",
-        "title": "Show!"
+        "command": "ct.run",
+        "title": "CT: Start testing!"
+      },
+      {
+        "command": "ctdisplay.updateTests",
+        "title": "ctdisplay.updateTests"
       }
     ]
   },
