@@ -3,7 +3,7 @@ import { TextDocument, TextEditor, Uri } from 'vscode';
 import { TestStatus } from '../../../src/contract/teststatus';
 import { TestResult } from '../../../src/contract/testresult';
 import { TextEditorMock } from '../../decorations/testdecorationpainter/texteditormock';
-import { TestDecorationPainterStub } from './testdecorationpainterstub';
+import { TestDecorationPainterMock } from './testdecorationpaintermock';
 import { SSL_OP_ALL } from 'constants';
 import { TestSetResult } from '../../../src/contract/testsetresult';
 import { TestTransferObject } from '../../../src/contract/testtransferobject';
@@ -21,7 +21,7 @@ suite("Decorations test", () => {
         testSetResult.push(new TestSetResult("FirstSet", "C:/", testResults))
 
         var textEditor = null;
-        var testDecorationPainter = new TestDecorationPainterStub();
+        var testDecorationPainter = new TestDecorationPainterMock();
         var testTransferObject = new TestTransferObject(testSetResult);
 
         var updateTestsInFileCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, textEditor);
@@ -43,7 +43,7 @@ suite("Decorations test", () => {
         textEditor.document = new TextDocumentStub();
         textEditor.document.lineCount = 1;
                
-        var testDecorationPainter = new TestDecorationPainterStub();
+        var testDecorationPainter = new TestDecorationPainterMock();
         var testTransferObject = new TestTransferObject(testSetResult);
 
         var updateTestsInFileCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, textEditor);
@@ -57,7 +57,7 @@ suite("Decorations test", () => {
         var textEditor = new TextEditorMock();
         textEditor.document = new TextDocumentStub();
                
-        var testDecorationPainter = new TestDecorationPainterStub();
+        var testDecorationPainter = new TestDecorationPainterMock();
         var testTransferObject = null;
 
         var updateTestsInFileCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, textEditor);
@@ -80,7 +80,7 @@ suite("Decorations test", () => {
         textEditor.document.uri = Uri.parse('some/different/file/path');
 
         
-        var testDecorationPainter = new TestDecorationPainterStub();
+        var testDecorationPainter = new TestDecorationPainterMock();
         var testTransferObject = new TestTransferObject(testSetResult);
 
         var updateTestsInFileCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, textEditor);
@@ -104,7 +104,7 @@ suite("Decorations test", () => {
         textEditor.document.uri = Uri.parse('some/file/path');
 
         
-        var testDecorationPainter = new TestDecorationPainterStub();
+        var testDecorationPainter = new TestDecorationPainterMock();
         var testTransferObject = new TestTransferObject(testSetResult);
 
         var updateTestsInFileCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, textEditor);

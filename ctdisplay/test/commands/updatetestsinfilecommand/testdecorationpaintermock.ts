@@ -5,7 +5,7 @@ import { TestResult } from '../../../src/contract/testresult';
 import { ITestDecorationPainter } from '../../../src/decorations/itestdecorationpainter';
 
 
-export class TestDecorationPainterStub implements ITestDecorationPainter {
+export class TestDecorationPainterMock implements ITestDecorationPainter {
 		
     constructor(private decorationsPainted: boolean = false)
     {}
@@ -15,7 +15,7 @@ export class TestDecorationPainterStub implements ITestDecorationPainter {
             return;  
         this.decorationsPainted = true;         
         tests.forEach(test => {
-            if(test.TestStatus != testStatus)
+            if(test.TestStatus !== testStatus)
             {
                 this.decorationsPainted = false;
             }
