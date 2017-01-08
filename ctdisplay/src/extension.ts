@@ -10,7 +10,7 @@ import {TestResult} from "./contract/TestResult";
 import {TestSetResult} from "./contract/testsetresult";
 import {TestStatus} from "./contract/TestStatus";
 import {ExceptionResult} from "./contract/ExceptionResult";
-import { TestCounter } from './statusbar/TestCounter';
+import { TestCounterStatusBarDisplay } from './statusbar/TestCounterStatusBarDisplay';
 
 import {UpdateTestsInFileCommand} from "./commands/UpdateTestsInFileCommand";
 import {TestDecorationPainter} from "./decorations/TestDecorationPainter";
@@ -20,10 +20,10 @@ import {TestDecorationPainter} from "./decorations/TestDecorationPainter";
 export function activate(context: vscode.ExtensionContext) {
     var decorations = new Decorations(context);
     var testDecorationPainter = new TestDecorationPainter(decorations)
-    let testCounter = new TestCounter();
+    let testCounterStatusBarDisplay = TestCounterStatusBarDisplay.getInstance();
     
     vscode.commands.registerCommand('ctdisplay.updateStatusBar', (testTransferObject) => {
-        testCounter.updateTestCount(testTransferObject);
+        testCounterStatusBarDisplay.updateTestCount(testTransferObject);
     });
 
     vscode.commands.registerCommand('ctdisplay.updateTests', (testTransferObject) => {
