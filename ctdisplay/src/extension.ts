@@ -3,13 +3,14 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import {Decorations} from './decorations/decorations';
-import * as fs from "fs";
+import * as fs from 'fs';
 
 import {TestTransferObject} from "./contract/TestTransferObject";
 import {TestResult} from "./contract/TestResult";
 import {TestSetResult} from "./contract/testsetresult";
 import {TestStatus} from "./contract/TestStatus";
 import {ExceptionResult} from "./contract/ExceptionResult";
+import { TestCounter } from './statusbar/TestCounter';
 
 import {UpdateTestsInFileCommand} from "./commands/UpdateTestsInFileCommand";
 import {TestDecorationPainter} from "./decorations/TestDecorationPainter";
@@ -19,6 +20,11 @@ import {TestDecorationPainter} from "./decorations/TestDecorationPainter";
 export function activate(context: vscode.ExtensionContext) {
     var decorations = new Decorations(context);
     var testDecorationPainter = new TestDecorationPainter(decorations)
+    let testCounter = new TestCounter();
+    
+    vscode.commands.registerCommand('ctdisplay.updateStatusBar', (testTransferObject) => {
+        testCounter.updateTestCount(testTransferObject);
+    });
 
     vscode.commands.registerCommand('ctdisplay.updateTests', (testTransferObject) => {
         var updateTestsCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter);
@@ -37,6 +43,7 @@ export function activate(context: vscode.ExtensionContext) {
         testSets.push(new TestSetResult("", "/C:/Users/dariu/Source/Repos/masterthesis/MasterThesis/TimeTablePlanning.Tests/StationTest.cs", testResults2));
         var transferObject = new TestTransferObject(testSets);
         vscode.commands.executeCommand('ctdisplay.updateTests', transferObject);
+        vscode.commands.executeCommand('ctdisplay.updateStatusBar', transferObject);
     });
 
 }
