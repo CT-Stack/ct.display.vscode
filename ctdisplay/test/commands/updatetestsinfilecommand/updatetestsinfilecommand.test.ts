@@ -46,7 +46,7 @@ suite("Decorations test", () => {
         var testDecorationPainter = new TestDecorationPainterMock();
         var testTransferObject = new TestTransferObject(testSetResult);
 
-        var updateTestsInFileCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, textEditor);
+        var updateTestsInFileCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, testDecorationPainter, textEditor);
         
         updateTestsInFileCommand.execute();  
 
@@ -60,7 +60,7 @@ suite("Decorations test", () => {
         var testDecorationPainter = new TestDecorationPainterMock();
         var testTransferObject = null;
 
-        var updateTestsInFileCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, textEditor);
+        var updateTestsInFileCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, testDecorationPainter, textEditor);
         
         updateTestsInFileCommand.execute();  
 
@@ -83,7 +83,7 @@ suite("Decorations test", () => {
         var testDecorationPainter = new TestDecorationPainterMock();
         var testTransferObject = new TestTransferObject(testSetResult);
 
-        var updateTestsInFileCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, textEditor);
+        var updateTestsInFileCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, testDecorationPainter, textEditor);
         
         updateTestsInFileCommand.execute();  
 
@@ -107,7 +107,7 @@ suite("Decorations test", () => {
         var testDecorationPainter = new TestDecorationPainterMock();
         var testTransferObject = new TestTransferObject(testSetResult);
 
-        var updateTestsInFileCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, textEditor);
+        var updateTestsInFileCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, testDecorationPainter, textEditor);
         
         updateTestsInFileCommand.execute();  
 

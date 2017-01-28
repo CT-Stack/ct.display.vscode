@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import {DecorationsStub} from './DecorationsStub';
-import {TestDecorationPainter} from '../../../src/decorations/testdecorationpainter';
+import {TestPainterFacade} from '../../../src/decorations/testpainterfacade';
 import {TestResult} from '../../../src/contract/TestResult';
 import {TestStatus} from '../../../src/contract/TestStatus';
 import {TextEditorMock} from "./TextEditorMock";
@@ -9,7 +9,7 @@ suite("Test decoration painter test", () => {
 
     test("Test lines must be the same like paint test decoration lines", () => {
         var decorations = new DecorationsStub();
-        var painter = new TestDecorationPainter(decorations);
+        var painter = new TestPainterFacade(decorations);
         var testResults = [];
         testResults.push(new TestResult("FirstTest", TestStatus.Pass, 20));
         testResults.push(new TestResult("Second test", TestStatus.Pass, 40));

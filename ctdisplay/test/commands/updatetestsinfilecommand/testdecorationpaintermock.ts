@@ -3,9 +3,10 @@ import { TestStatus } from '../../../src/contract/teststatus';
 import { TextEditor } from 'vscode';
 import { TestResult } from '../../../src/contract/testresult';
 import { ITestDecorationPainter } from '../../../src/decorations/itestdecorationpainter';
+import {ITestErrorPainter} from '../../../src/decorations/itesterrorpainter';
 
 
-export class TestDecorationPainterMock implements ITestDecorationPainter {
+export class TestDecorationPainterMock implements ITestDecorationPainter, ITestErrorPainter {
 		
     constructor(private decorationsPainted: boolean = false)
     {}
@@ -20,6 +21,9 @@ export class TestDecorationPainterMock implements ITestDecorationPainter {
                 this.decorationsPainted = false;
             }
         });       
+    }
+
+    public paintErrors(tests: TestResult[], activeTextEditor : TextEditor): void {
     }
 
     get DecorationsPainted () : boolean{

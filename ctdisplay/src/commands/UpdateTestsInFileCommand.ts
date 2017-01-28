@@ -6,11 +6,13 @@ import {TestStatus} from "../contract/teststatus";
 import {TestSetResult} from "../contract/TestSetResult";
 import {TestTransferObject} from "../contract/testTransferObject";
 import {ITestDecorationPainter} from "../decorations/ITestDecorationPainter";
+import {ITestErrorPainter} from "../decorations/itesterrorpainter";
 
 export class UpdateTestsInFileCommand implements ICommand{
 
     constructor(private testTransferObject: TestTransferObject, 
             private testDecorationPainter: ITestDecorationPainter,
+            private testErrorPainter: ITestErrorPainter,
             private activeTextEditor: vscode.TextEditor = vscode.window.activeTextEditor)
     {}
 
@@ -32,6 +34,8 @@ export class UpdateTestsInFileCommand implements ICommand{
     {
         var filteredTests = this.takeTestsWithSelectedTestStatus(tests, testStatus);
         this.testDecorationPainter.paintTestDecorations(filteredTests, testStatus, this.activeTextEditor);
+        if (testStatus == TestStatus.Fail)
+            this.testErrorPainter.paintErrors(filteredTests, this.activeTextEditor);
     }
 
     private getTestsForActiveEditor(testTransferObject: TestTransferObject) : TestResult[]

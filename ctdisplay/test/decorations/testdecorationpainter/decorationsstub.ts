@@ -7,11 +7,17 @@ export class DecorationsStub implements IDecorations{
     {
         this._decorationsCollection = new Map<TestStatus, TextEditorDecorationType>();
         this._decorationsCollection.set(TestStatus.Pass, window.createTextEditorDecorationType({}));
+        this._exceptionDecoration = window.createTextEditorDecorationType({});
     }
     private _decorationsCollection : Map<TestStatus, TextEditorDecorationType>;
+    private _exceptionDecoration : TextEditorDecorationType;
 
     get DecorationsCollection() : Map<TestStatus, TextEditorDecorationType>{
         return this._decorationsCollection;
+    }
+
+    get ExceptionDecoration() : TextEditorDecorationType{
+        return this._exceptionDecoration;
     }
 
 }

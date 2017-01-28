@@ -22,9 +22,14 @@ export class Decorations implements IDecorations {
     }
     
     private _decorationsCollection : Map<TestStatus, TextEditorDecorationType>;
+    private _exceptionDecoration : TextEditorDecorationType;
 
     get DecorationsCollection() : Map<TestStatus, TextEditorDecorationType>{
         return this._decorationsCollection;
+    }
+
+    get ExceptionDecoration() : TextEditorDecorationType{
+        return this._exceptionDecoration;
     }
 
     private initializeDecorations() {
@@ -37,6 +42,8 @@ export class Decorations implements IDecorations {
         var unexecutedIconPath = this.getIconPath("unexecutedIconPath", "images\\unexecuted.png" ) 
         var unexecutedDecoration = this.decorationCreator.createTextEditorDecorationType({gutterIconPath: unexecutedIconPath});
         this.DecorationsCollection.set(TestStatus.Unexecuted, unexecutedDecoration);
+        var exceptionIconPath = this.getIconPath("errorIconPath", "images\\error.png" );
+        this._exceptionDecoration = this.decorationCreator.createTextEditorDecorationType({gutterIconPath: exceptionIconPath});
     }
 
     private getIconPath(configValue: string, defaultValue: string) : string

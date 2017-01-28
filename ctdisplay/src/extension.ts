@@ -13,39 +13,34 @@ import {ExceptionResult} from "./contract/ExceptionResult";
 import { TestCounterStatusBarDisplay } from './statusbar/TestCounterStatusBarDisplay';
 
 import {UpdateTestsInFileCommand} from "./commands/UpdateTestsInFileCommand";
-import {TestDecorationPainter} from "./decorations/TestDecorationPainter";
+import {TestPainterFacade} from "./decorations/testpainterfacade";
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 
 export function activate(context: vscode.ExtensionContext) {
     var decorations = new Decorations(context);
-    var testDecorationPainter = new TestDecorationPainter(decorations)
+    var testDecorationPainter = new TestPainterFacade(decorations)
     let testCounterStatusBarDisplay = TestCounterStatusBarDisplay.getInstance();
+    var testTransferObject = TestTransferObject.getInstance();
     
     vscode.commands.registerCommand('ctdisplay.updateStatusBar', (testTransferObject) => {
         testCounterStatusBarDisplay.updateTestCount(testTransferObject);
     });
 
-    vscode.commands.registerCommand('ctdisplay.updateTests', (testTransferObject) => {
-        var updateTestsCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter);
+    vscode.commands.registerCommand('ctdisplay.updateTests', (newTestTransferObject) => {
+        testTransferObject.updateTestSetResults(newTestTransferObject.TestSetResults);
+        testCounterStatusBarDisplay.updateTestCount(testTransferObject);
+        var updateTestsCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, testDecorationPainter);
         updateTestsCommand.execute();
     });
     vscode.commands.registerTextEditorCommand('ct.run', () => {
-        let testSets: TestSetResult[] = [];
-        let testResults1: TestResult[] = [];
-        testResults1.push(new TestResult("StationHasName", TestStatus.Pass, 14));
-        testResults1.push(new TestResult("StationHasSettledName", TestStatus.Fail, 21, new ExceptionResult("Sth wrong", "NotImplementedException")));
-        testResults1.push(new TestResult("StationNameCannotBeNull", TestStatus.Unexecuted, 28 ))
-        let testResults2: TestResult[] = [];
-        testResults2.push(new TestResult("StationNameCannotBeEmpty", TestStatus.Pass, 34));
-        testResults2.push(new TestResult("StationIsInitializedWithEmptyCollectionOfNeighbours", TestStatus.Unexecuted, 40));
-        testSets.push(new TestSetResult("", "/C:/Users/dariu/Source/Repos/masterthesis/MasterThesis/TimeTablePlanning.Tests/StationTest.cs", testResults1));
-        testSets.push(new TestSetResult("", "/C:/Users/dariu/Source/Repos/masterthesis/MasterThesis/TimeTablePlanning.Tests/StationTest.cs", testResults2));
-        var transferObject = new TestTransferObject(testSets);
-        vscode.commands.executeCommand('ctdisplay.updateTests', transferObject);
-        vscode.commands.executeCommand('ctdisplay.updateStatusBar', transferObject);
+		vscode.commands.executeCommand("ct.runTestObserver");
     });
 
+    vscode.window.onDidChangeActiveTextEditor((currentTextEditor: vscode.TextEditor) => {
+        var updateTestsCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, testDecorationPainter);
+        updateTestsCommand.execute();
+    });
 }
 
 // this method is called when your extension is deactivated
