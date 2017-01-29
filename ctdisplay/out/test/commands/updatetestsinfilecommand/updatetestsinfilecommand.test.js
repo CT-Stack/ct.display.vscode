@@ -1,0 +1,82 @@
+"use strict";
+const textdocumentstub_1 = require("./textdocumentstub");
+const vscode_1 = require("vscode");
+const teststatus_1 = require("../../../src/contract/teststatus");
+const testresult_1 = require("../../../src/contract/testresult");
+const texteditormock_1 = require("../../decorations/testdecorationpainter/texteditormock");
+const testdecorationpaintermock_1 = require("./testdecorationpaintermock");
+const testsetresult_1 = require("../../../src/contract/testsetresult");
+const testtransferobject_1 = require("../../../src/contract/testtransferobject");
+const UpdateTestsInFileCommand_1 = require("../../../src/commands/UpdateTestsInFileCommand");
+const assert = require("assert");
+suite("Decorations test", () => {
+    test("Do nothing when active text editor is undefined", () => {
+        var testResults = [];
+        testResults.push(new testresult_1.TestResult("FirstTest", teststatus_1.TestStatus.Pass, 20));
+        testResults.push(new testresult_1.TestResult("Second test", teststatus_1.TestStatus.Pass, 40));
+        var testSetResult = [];
+        testSetResult.push(new testsetresult_1.TestSetResult("FirstSet", "C:/", testResults));
+        var textEditor = null;
+        var testDecorationPainter = new testdecorationpaintermock_1.TestDecorationPainterMock();
+        var testTransferObject = new testtransferobject_1.TestTransferObject(testSetResult);
+        var updateTestsInFileCommand = new UpdateTestsInFileCommand_1.UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, textEditor);
+        updateTestsInFileCommand.execute();
+        assert.equal(testDecorationPainter.DecorationsPainted, false);
+    });
+    test("Do nothing when document in active text editor is empty", () => {
+        var testResults = [];
+        testResults.push(new testresult_1.TestResult("FirstTest", teststatus_1.TestStatus.Pass, 20));
+        testResults.push(new testresult_1.TestResult("Second test", teststatus_1.TestStatus.Pass, 40));
+        var testSetResult = [];
+        testSetResult.push(new testsetresult_1.TestSetResult("FirstSet", "C:/", testResults));
+        var textEditor = new texteditormock_1.TextEditorMock();
+        textEditor.document = new textdocumentstub_1.TextDocumentStub();
+        textEditor.document.lineCount = 1;
+        var testDecorationPainter = new testdecorationpaintermock_1.TestDecorationPainterMock();
+        var testTransferObject = new testtransferobject_1.TestTransferObject(testSetResult);
+        var updateTestsInFileCommand = new UpdateTestsInFileCommand_1.UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, testDecorationPainter, textEditor);
+        updateTestsInFileCommand.execute();
+        assert.equal(testDecorationPainter.DecorationsPainted, false);
+    });
+    test("Do nothing when testobject is null", () => {
+        var textEditor = new texteditormock_1.TextEditorMock();
+        textEditor.document = new textdocumentstub_1.TextDocumentStub();
+        var testDecorationPainter = new testdecorationpaintermock_1.TestDecorationPainterMock();
+        var testTransferObject = null;
+        var updateTestsInFileCommand = new UpdateTestsInFileCommand_1.UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, testDecorationPainter, textEditor);
+        updateTestsInFileCommand.execute();
+        assert.equal(testDecorationPainter.DecorationsPainted, false);
+    });
+    test("All used test results must refer to active document", () => {
+        var testResults = [];
+        testResults.push(new testresult_1.TestResult("FirstTest", teststatus_1.TestStatus.Pass, 20));
+        testResults.push(new testresult_1.TestResult("Second test", teststatus_1.TestStatus.Pass, 40));
+        var testSetResult = [];
+        testSetResult.push(new testsetresult_1.TestSetResult("FirstSet", "some/file/path", testResults));
+        var textEditor = new texteditormock_1.TextEditorMock();
+        textEditor.document = new textdocumentstub_1.TextDocumentStub();
+        textEditor.document.uri = vscode_1.Uri.parse('some/different/file/path');
+        var testDecorationPainter = new testdecorationpaintermock_1.TestDecorationPainterMock();
+        var testTransferObject = new testtransferobject_1.TestTransferObject(testSetResult);
+        var updateTestsInFileCommand = new UpdateTestsInFileCommand_1.UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, testDecorationPainter, textEditor);
+        updateTestsInFileCommand.execute();
+        assert.equal(testDecorationPainter.DecorationsPainted, false);
+    });
+    test("Setting decoration for each test status", () => {
+        var testResults = [];
+        testResults.push(new testresult_1.TestResult("FirstTest", teststatus_1.TestStatus.Pass, 20));
+        testResults.push(new testresult_1.TestResult("Second test", teststatus_1.TestStatus.Fail, 40));
+        testResults.push(new testresult_1.TestResult("Third test", teststatus_1.TestStatus.Unexecuted, 50));
+        var testSetResult = [];
+        testSetResult.push(new testsetresult_1.TestSetResult("FirstSet", "some/file/path", testResults));
+        var textEditor = new texteditormock_1.TextEditorMock();
+        textEditor.document = new textdocumentstub_1.TextDocumentStub();
+        textEditor.document.uri = vscode_1.Uri.parse('some/file/path');
+        var testDecorationPainter = new testdecorationpaintermock_1.TestDecorationPainterMock();
+        var testTransferObject = new testtransferobject_1.TestTransferObject(testSetResult);
+        var updateTestsInFileCommand = new UpdateTestsInFileCommand_1.UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, testDecorationPainter, textEditor);
+        updateTestsInFileCommand.execute();
+        assert.equal(testDecorationPainter.DecorationsPainted, true);
+    });
+});
+//# sourceMappingURL=updatetestsinfilecommand.test.js.map
