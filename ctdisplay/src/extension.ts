@@ -41,6 +41,7 @@ export function activate(context: vscode.ExtensionContext) {
         var updateTestsCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, testDecorationPainter);
         updateTestsCommand.execute();
     });
+    vscode.window.showInformationMessage("CTDisplay is running.");
 }
 
 // this method is called when your extension is deactivated
