@@ -37,7 +37,7 @@ export class TestCounterStatusBarDisplay {
         let passedTests = this.takeTestsCountWithSelectedTestStatus(allTests, TestStatus.Pass);
         let failedTests = this.takeTestsCountWithSelectedTestStatus(allTests, TestStatus.Fail);       
 
-        this.statusBarItem.text = `All Tests: ${allTests.length}    Passed: ${passedTests}    Failed: ${failedTests}`;
+        this.statusBarItem.text = `All Tests: ${allTests.length}    $(check) ${passedTests}    $(x) ${failedTests}`;
         this.statusBarItem.show();        
     }   
 
