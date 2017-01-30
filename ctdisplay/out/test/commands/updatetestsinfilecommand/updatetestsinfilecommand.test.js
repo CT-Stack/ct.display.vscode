@@ -1,14 +1,14 @@
 "use strict";
-const textdocumentstub_1 = require("./textdocumentstub");
-const vscode_1 = require("vscode");
-const teststatus_1 = require("../../../src/contract/teststatus");
-const testresult_1 = require("../../../src/contract/testresult");
-const texteditormock_1 = require("../../decorations/testdecorationpainter/texteditormock");
-const testdecorationpaintermock_1 = require("./testdecorationpaintermock");
-const testsetresult_1 = require("../../../src/contract/testsetresult");
-const testtransferobject_1 = require("../../../src/contract/testtransferobject");
-const UpdateTestsInFileCommand_1 = require("../../../src/commands/UpdateTestsInFileCommand");
-const assert = require("assert");
+const textdocumentstub_1 = require('./textdocumentstub');
+const vscode_1 = require('vscode');
+const teststatus_1 = require('../../../src/contract/teststatus');
+const testresult_1 = require('../../../src/contract/testresult');
+const texteditormock_1 = require('../../decorations/testdecorationpainter/texteditormock');
+const testdecorationpaintermock_1 = require('./testdecorationpaintermock');
+const testsetresult_1 = require('../../../src/contract/testsetresult');
+const testtransferobject_1 = require('../../../src/contract/testtransferobject');
+const UpdateTestsInFileCommand_1 = require('../../../src/commands/UpdateTestsInFileCommand');
+const assert = require('assert');
 suite("Decorations test", () => {
     test("Do nothing when active text editor is undefined", () => {
         var testResults = [];
@@ -18,7 +18,8 @@ suite("Decorations test", () => {
         testSetResult.push(new testsetresult_1.TestSetResult("FirstSet", "C:/", testResults));
         var textEditor = null;
         var testDecorationPainter = new testdecorationpaintermock_1.TestDecorationPainterMock();
-        var testTransferObject = new testtransferobject_1.TestTransferObject(testSetResult);
+        var testTransferObject = testtransferobject_1.TestTransferObject.getInstance();
+        testTransferObject.updateTestSetResults(testSetResult);
         var updateTestsInFileCommand = new UpdateTestsInFileCommand_1.UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, textEditor);
         updateTestsInFileCommand.execute();
         assert.equal(testDecorationPainter.DecorationsPainted, false);
@@ -33,7 +34,8 @@ suite("Decorations test", () => {
         textEditor.document = new textdocumentstub_1.TextDocumentStub();
         textEditor.document.lineCount = 1;
         var testDecorationPainter = new testdecorationpaintermock_1.TestDecorationPainterMock();
-        var testTransferObject = new testtransferobject_1.TestTransferObject(testSetResult);
+        var testTransferObject = testtransferobject_1.TestTransferObject.getInstance();
+        testTransferObject.updateTestSetResults(testSetResult);
         var updateTestsInFileCommand = new UpdateTestsInFileCommand_1.UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, testDecorationPainter, textEditor);
         updateTestsInFileCommand.execute();
         assert.equal(testDecorationPainter.DecorationsPainted, false);
@@ -57,7 +59,8 @@ suite("Decorations test", () => {
         textEditor.document = new textdocumentstub_1.TextDocumentStub();
         textEditor.document.uri = vscode_1.Uri.parse('some/different/file/path');
         var testDecorationPainter = new testdecorationpaintermock_1.TestDecorationPainterMock();
-        var testTransferObject = new testtransferobject_1.TestTransferObject(testSetResult);
+        var testTransferObject = testtransferobject_1.TestTransferObject.getInstance();
+        testTransferObject.updateTestSetResults(testSetResult);
         var updateTestsInFileCommand = new UpdateTestsInFileCommand_1.UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, testDecorationPainter, textEditor);
         updateTestsInFileCommand.execute();
         assert.equal(testDecorationPainter.DecorationsPainted, false);
@@ -73,7 +76,8 @@ suite("Decorations test", () => {
         textEditor.document = new textdocumentstub_1.TextDocumentStub();
         textEditor.document.uri = vscode_1.Uri.parse('some/file/path');
         var testDecorationPainter = new testdecorationpaintermock_1.TestDecorationPainterMock();
-        var testTransferObject = new testtransferobject_1.TestTransferObject(testSetResult);
+        var testTransferObject = testtransferobject_1.TestTransferObject.getInstance();
+        testTransferObject.updateTestSetResults(testSetResult);
         var updateTestsInFileCommand = new UpdateTestsInFileCommand_1.UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, testDecorationPainter, textEditor);
         updateTestsInFileCommand.execute();
         assert.equal(testDecorationPainter.DecorationsPainted, true);

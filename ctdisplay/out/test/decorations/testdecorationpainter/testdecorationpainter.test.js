@@ -1,9 +1,9 @@
 "use strict";
-const assert = require("assert");
-const DecorationsStub_1 = require("./DecorationsStub");
-const testpainterfacade_1 = require("../../../src/decorations/testpainterfacade");
-const TestResult_1 = require("../../../src/contract/TestResult");
-const TestStatus_1 = require("../../../src/contract/TestStatus");
+const assert = require('assert');
+const DecorationsStub_1 = require('./DecorationsStub');
+const testpainterfacade_1 = require('../../../src/decorations/testpainterfacade');
+const TestResult_1 = require('../../../src/contract/TestResult');
+const TestStatus_1 = require('../../../src/contract/TestStatus');
 const TextEditorMock_1 = require("./TextEditorMock");
 suite("Test decoration painter test", () => {
     test("Test lines must be the same like paint test decoration lines", () => {

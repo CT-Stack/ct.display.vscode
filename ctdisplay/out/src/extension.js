@@ -1,10 +1,10 @@
 'use strict';
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-const vscode = require("vscode");
-const decorations_1 = require("./decorations/decorations");
+const vscode = require('vscode');
+const decorations_1 = require('./decorations/decorations');
 const TestTransferObject_1 = require("./contract/TestTransferObject");
-const TestCounterStatusBarDisplay_1 = require("./statusbar/TestCounterStatusBarDisplay");
+const TestCounterStatusBarDisplay_1 = require('./statusbar/TestCounterStatusBarDisplay');
 const UpdateTestsInFileCommand_1 = require("./commands/UpdateTestsInFileCommand");
 const testpainterfacade_1 = require("./decorations/testpainterfacade");
 // this method is called when your extension is activated
@@ -30,6 +30,7 @@ function activate(context) {
         var updateTestsCommand = new UpdateTestsInFileCommand_1.UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, testDecorationPainter);
         updateTestsCommand.execute();
     });
+    vscode.window.showInformationMessage("CTDisplay is running.");
 }
 exports.activate = activate;
 // this method is called when your extension is deactivated

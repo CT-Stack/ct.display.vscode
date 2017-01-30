@@ -1,6 +1,6 @@
 "use strict";
-const textlinestub_1 = require("./textlinestub");
-const vscode_1 = require("vscode");
+const textlinestub_1 = require('./textlinestub');
+const vscode_1 = require('vscode');
 class TextDocumentStub {
     constructor() {
         this.uri = new vscode_1.Uri();

@@ -1,7 +1,7 @@
 "use strict";
-const assert = require("assert");
-const decorations_1 = require("../../../src/decorations/decorations");
-const ExtensionContextStub_1 = require("./ExtensionContextStub");
+const assert = require('assert');
+const decorations_1 = require('../../../src/decorations/decorations');
+const ExtensionContextStub_1 = require('./ExtensionContextStub');
 const configurationstubs_1 = require("./configurationstubs");
 const DecorationCreatorMock_1 = require("./DecorationCreatorMock");
 const MessageDisplayMock_1 = require("./MessageDisplayMock");

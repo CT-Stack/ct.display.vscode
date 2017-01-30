@@ -22,7 +22,8 @@ suite("Decorations test", () => {
 
         var textEditor = null;
         var testDecorationPainter = new TestDecorationPainterMock();
-        var testTransferObject = new TestTransferObject(testSetResult);
+        var testTransferObject = TestTransferObject.getInstance();
+        testTransferObject.updateTestSetResults(testSetResult);
 
         var updateTestsInFileCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, textEditor);
         
@@ -44,7 +45,8 @@ suite("Decorations test", () => {
         textEditor.document.lineCount = 1;
                
         var testDecorationPainter = new TestDecorationPainterMock();
-        var testTransferObject = new TestTransferObject(testSetResult);
+        var testTransferObject = TestTransferObject.getInstance();
+        testTransferObject.updateTestSetResults(testSetResult);
 
         var updateTestsInFileCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, testDecorationPainter, textEditor);
         
@@ -81,7 +83,8 @@ suite("Decorations test", () => {
 
         
         var testDecorationPainter = new TestDecorationPainterMock();
-        var testTransferObject = new TestTransferObject(testSetResult);
+        var testTransferObject = TestTransferObject.getInstance();
+        testTransferObject.updateTestSetResults(testSetResult);
 
         var updateTestsInFileCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, testDecorationPainter, textEditor);
         
@@ -105,7 +108,8 @@ suite("Decorations test", () => {
 
         
         var testDecorationPainter = new TestDecorationPainterMock();
-        var testTransferObject = new TestTransferObject(testSetResult);
+        var testTransferObject = TestTransferObject.getInstance();
+        testTransferObject.updateTestSetResults(testSetResult);
 
         var updateTestsInFileCommand = new UpdateTestsInFileCommand(testTransferObject, testDecorationPainter, testDecorationPainter, textEditor);
         

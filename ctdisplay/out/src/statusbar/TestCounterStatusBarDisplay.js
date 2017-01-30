@@ -1,7 +1,7 @@
 "use strict";
-const teststatus_1 = require("../contract/teststatus");
-const vscode = require("vscode");
-const vscode_1 = require("vscode");
+const teststatus_1 = require('../contract/teststatus');
+const vscode = require('vscode');
+const vscode_1 = require('vscode');
 class TestCounterStatusBarDisplay {
     constructor(statusBarItem = vscode.window.createStatusBarItem(vscode_1.StatusBarAlignment.Left), activeTextEditor = vscode.window.activeTextEditor) {
         this.statusBarItem = statusBarItem;
@@ -25,7 +25,7 @@ class TestCounterStatusBarDisplay {
         }
         let passedTests = this.takeTestsCountWithSelectedTestStatus(allTests, teststatus_1.TestStatus.Pass);
         let failedTests = this.takeTestsCountWithSelectedTestStatus(allTests, teststatus_1.TestStatus.Fail);
-        this.statusBarItem.text = `All Tests: ${allTests.length}    Passed: ${passedTests}    Failed: ${failedTests}`;
+        this.statusBarItem.text = `All Tests: ${allTests.length}    $(check) ${passedTests}    $(x) ${failedTests}`;
         this.statusBarItem.show();
     }
     takeTestsCountWithSelectedTestStatus(testCollection, selectedTestStatus) {
